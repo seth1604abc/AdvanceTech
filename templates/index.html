@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let $plant = $("#plant")
+            let $unit = $("#unit")
+            let $option = $unit.find('option');
+            $plant.on('change', function(){
+               $unit.html($option.filter('[value="'+this.value+'"]'));
+            }).trigger('change');
+        });
+    </script>
+    <style>
+        body {
+            position: relative;
+        }
+        .container {
+            background-color: #9b9b9b;
+            width: 300px;
+            text-align: center;
+            height: 300px;
+            line-height: 100px;
+            margin: auto;
+            position: absolute;
+            top: 300px;
+            left: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <span>廠區</span>
+           <select name="plant" id="plant">
+
+                <option value="" selected disabled="true">---選擇廠商---</option>
+               {% for plant in plants %}
+                <option value="{{ plant.name }}">{{ plant.name }}</option>
+               {% endfor %}
+           </select>
+        </div>
+
+        <div>
+        <span>單元</span>
+        <select name="unit" id="unit">
+
+            {% for unit in units %}
+            <option value="{{ unit.plant_id }}">{{ unit.number }}</option>
+            {% endfor %}
+        </select>
+        </div>
+    </div>
+</body>
+</html>
